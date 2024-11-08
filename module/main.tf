@@ -19,17 +19,8 @@ resource "aws_route_table" "rt" {
   }
 }
 
-resource "aws_internet_gateway" "igw" {
-  vpc_id = var.vpc_id
-
-  tags = {
-    Name = "igw"
-  }
-}
-
-resource "aws_route" "route" {
-  for_each                  = var.subnets
-  route_table_id            = lookup(lookup(aws_route_table.rt, each.key, null), "id", null)
-  destination_cidr_block    = "0.0.0.0/0"
-  gateway_id                = aws_internet_gateway.igw.id
+resource "aws_route_table_association" "a" {
+  for_each = var.subnets
+  subnet_id      = lookup(lookup(aws_subnet.main, each.key, null), "id", null)
+  route_table_id = lookup(lookup(aws_route_table.rt, each.key, null), "id", null)
 }

@@ -30,7 +30,7 @@ resource "aws_route" "route_entry" {
 }
 
 resource "aws_eip" "ip" {
-  for_each = lookup(lookup(module.subnets, "public"), "subnet_ids"), null)
+  count    = length(local.public_subnet_ids)
 
   domain   = "vpc"
 }

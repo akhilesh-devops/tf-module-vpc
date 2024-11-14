@@ -3,11 +3,11 @@ locals {
   public_subnet_ids  = [for k,v in lookup(lookup(module.subnets, "public", null), "subnets_ids", null): v.id]
   app_subnet_ids     = [for k,v in lookup(lookup(module.subnets, "app", null), "subnets_ids", null): v.id]
   db_subnet_ids      = [for k,v in lookup(lookup(module.subnets, "db", null), "subnets_ids", null): v.id]
-  private_subnet_ids = merge(local.app_subnet_ids, local.db_subnet_ids)
+  private_subnet_ids = concat(local.app_subnet_ids, local.db_subnet_ids)
 
   #Routetable
   public_route_table_ids = [for k,v in lookup(lookup(module.subnets, "public", null), "id", null): v.id]
   app_route_table_ids    = [for k,v in lookup(lookup(module.subnets, "app", null), "id", null): v.id]
   db_route_table_ids     = [for k,v in lookup(lookup(module.subnets, "db", null), "id", null): v.id]
-  private_route_table_ids = merge(local.app_route_table_ids, local.db_route_table_ids)
+  private_route_table_ids = concat(local.app_route_table_ids, local.db_route_table_ids)
 }

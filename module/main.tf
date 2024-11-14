@@ -14,7 +14,7 @@ resource "aws_route_table" "main" {
   vpc_id   = var.vpc
 
   tags = {
-    Name = lookup(each.key, null)
+    Name = each.key
   }
 }
 

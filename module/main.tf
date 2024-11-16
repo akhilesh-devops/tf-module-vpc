@@ -5,7 +5,7 @@ resource "aws_subnet" "main" {
   availability_zone = each.value["az"]
 
   tags = {
-    Name = each.key
+    Name = merge(var.tags, Name="${var.env}-${each.key}-subnet")
   }
 }
 
@@ -14,7 +14,7 @@ resource "aws_route_table" "main" {
   vpc_id   = var.vpc
 
   tags = {
-    Name = each.key
+    Name = merge(var.tags, Name="${var.env}-${each.key}-rt")
   }
 }
 

@@ -2,6 +2,6 @@ output "subnets" {
   value = module.subnets
 }
 
-output "vpc" {
-  value = aws_vpc.main
+output "vpc_id" {
+  value = aws_vpc.main.id
 }

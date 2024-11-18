@@ -27,3 +27,9 @@ resource "aws_route" "rt" {
   destination_cidr_block    = "0.0.0.0/0"
   gateway_id                = aws_internet_gateway.igw.id
 }
+
+resource "aws_eip" "eip" {
+  for_each = lookup(lookup(module.subnets, "public", null), "subnet_ids", null)
+
+  domain   = "vpc"
+}

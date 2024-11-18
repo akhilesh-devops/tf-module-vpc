@@ -32,4 +32,7 @@ resource "aws_eip" "eip" {
   for_each = lookup(lookup(module.subnets, "public", null), "subnet_ids", null)
 
   domain   = "vpc"
+  tags = {
+    Name = each.key
+  }
 }

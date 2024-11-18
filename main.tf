@@ -42,7 +42,5 @@ resource "aws_nat_gateway" "ngw" {
   allocation_id = element(aws_eip.ngw.*.id, count.index)
   subnet_id     = element(local.public_subnet_ids, count.index)
 
-  tags = {
-    Name = "ngw-${count.index+1}"
-  }
+
 }
